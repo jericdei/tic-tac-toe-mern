@@ -1,38 +1,6 @@
 name: tictactoe-mern
 
 services:
-  backend:
-    image: node:21-alpine
-    container_name: tictactoe-mern-backend
-    ports:
-      - 3000
-    volumes:
-      - ./backend:/app
-    networks:
-      - external
-    working_dir: /app
-    command: ./start.sh
-    labels:
-      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK_NAME}
-      - traefik.http.services.backend.loadbalancer.server.port=3000
-      - traefik.http.routers.backend.rule=Host(`api.tictactoe-mern.localhost`)
-
-  frontend:
-    image: node:21-alpine
-    container_name: tictactoe-mern-frontend
-    ports:
-      - 5173
-    volumes:
-      - ./frontend:/app
-    networks:
-      - external
-    working_dir: /app
-    command: npm run dev
-    labels:
-      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK_NAME}
-      - traefik.http.services.frontend.loadbalancer.server.port=5173
-      - traefik.http.routers.frontend.rule=Host(`tictactoe-mern.localhost`)
-
   database:
     image: mongo:7.0
     container_name: tictactoe-mern-database
@@ -40,13 +8,6 @@ services:
       - 27017:27017
     volumes:
       - tictactoe-mern-data:/data/db
-    networks:
-      - external
-
-networks:
-  external:
-    external: true
-    name: ${DOCKER_EXTERNAL_NETWORK_NAME}
 
 volumes:
   tictactoe-mern-data:
