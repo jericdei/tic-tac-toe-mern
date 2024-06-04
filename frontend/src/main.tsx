@@ -1,22 +1,28 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./App.tsx"
-import "./index.css"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import { PrimeReactProvider } from "primereact/api"
-import Tailwind from "primereact/passthrough/tailwind"
-import { twMerge } from "tailwind-merge"
+import Index from "./routes/index.tsx"
+import Game from "./routes/game.tsx"
+
+import "./index.css"
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Index />,
+    },
+    {
+        path: "/game",
+        element: <Game />,
+    },
+])
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <PrimeReactProvider
-        value={{
-            unstyled: true,
-            pt: Tailwind,
-            ptOptions: { mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge },
-        }}
-    >
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
-    </PrimeReactProvider>,
+    <React.StrictMode>
+        <PrimeReactProvider>
+            <RouterProvider router={router} />
+        </PrimeReactProvider>
+    </React.StrictMode>,
 )

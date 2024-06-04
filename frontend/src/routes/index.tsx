@@ -1,6 +1,7 @@
 import { Button } from "primereact/button"
+import { Link } from "react-router-dom"
 
-function App() {
+export default function Index() {
     return (
         <>
             <main className="grid h-screen w-screen place-items-center">
@@ -12,12 +13,12 @@ function App() {
                     </div>
 
                     <div className="mt-8 flex justify-center">
-                        <Button label="New Game" />
+                        <Link to={"/game"}>
+                            <Button label="Start New Game" />
+                        </Link>
                     </div>
                 </div>
             </main>
         </>
     )
 }
-
-export default App
