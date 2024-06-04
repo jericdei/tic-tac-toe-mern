@@ -1,0 +1,55 @@
+name: tictactoe-mern
+
+services:
+  database:
+    container_name: tictactoe-database
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - tictactoe-data:/data/db
+    networks:
+      - default
+      - external
+
+  api:
+    container_name: tictactoe-api
+    image: node:21-alpine
+    ports:
+      - 3000
+    labels:
+      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK}
+      - traefik.http.routers.api.rule=Host(`api.tictactoe.localhost`)
+    volumes:
+      - ./api:/app
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017
+    networks:
+      - default
+      - external
+
+  app:
+    container_name: tictactoe-app
+    image: node:21-alpine
+    ports:
+      - 5173
+    labels:
+      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK}
+      - traefik.http.routers.app.rule=Host(`tictactoe.localhost`)
+    volumes:
+      - ./app:/app
+    networks:
+      - default
+      - external
+
+volumes:
+  tictactoe-data:
+
+networks:
+  default:
+  external:
+    external: true
+    name: ${DOCKER_EXTERNAL_NETWORK}
