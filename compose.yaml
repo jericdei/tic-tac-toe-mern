@@ -1,55 +1,52 @@
 name: tictactoe-mern
 
 services:
-  database:
-    container_name: tictactoe-database
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
-    volumes:
-      - tictactoe-data:/data/db
-    networks:
-      - default
-      - external
-
-  api:
-    container_name: tictactoe-api
+  backend:
     image: node:21-alpine
+    container_name: tictactoe-mern-backend
     ports:
       - 3000
-    labels:
-      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK}
-      - traefik.http.routers.api.rule=Host(`api.tictactoe.localhost`)
     volumes:
-      - ./api:/app
-    environment:
-      - MONGODB_URI=mongodb://admin:password@mongodb:27017
+      - ./backend:/app
     networks:
-      - default
       - external
+    working_dir: /app
+    command: ./start.sh
+    labels:
+      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK_NAME}
+      - traefik.http.services.backend.loadbalancer.server.port=3000
+      - traefik.http.routers.backend.rule=Host(`api.tictactoe-mern.localhost`)
 
-  app:
-    container_name: tictactoe-app
+  frontend:
     image: node:21-alpine
+    container_name: tictactoe-mern-frontend
     ports:
       - 5173
-    labels:
-      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK}
-      - traefik.http.routers.app.rule=Host(`tictactoe.localhost`)
     volumes:
-      - ./app:/app
+      - ./frontend:/app
     networks:
-      - default
+      - external
+    working_dir: /app
+    command: npm run dev
+    labels:
+      - traefik.docker.network=${DOCKER_EXTERNAL_NETWORK_NAME}
+      - traefik.http.services.frontend.loadbalancer.server.port=5173
+      - traefik.http.routers.frontend.rule=Host(`tictactoe-mern.localhost`)
+
+  database:
+    image: mongo:7.0
+    container_name: tictactoe-mern-database
+    ports:
+      - 27017:27017
+    volumes:
+      - tictactoe-mern-data:/data/db
+    networks:
       - external
 
-volumes:
-  tictactoe-data:
-
 networks:
-  default:
   external:
     external: true
-    name: ${DOCKER_EXTERNAL_NETWORK}
+    name: ${DOCKER_EXTERNAL_NETWORK_NAME}
+
+volumes:
+  tictactoe-mern-data:
