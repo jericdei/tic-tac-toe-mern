@@ -36,29 +36,25 @@ export default function NameDialog({ visible, setVisible, names, setNames, setGa
             <div className="mt-8 flex flex-col gap-8">
                 <form onSubmit={handleSubmit}>
                     <div className="flex items-center gap-4">
-                        <div>
-                            <FloatLabel>
-                                <InputText
-                                    id="player_one"
-                                    className="w-full"
-                                    value={names[0]}
-                                    onChange={e => setNames([e.target.value, names[1]])}
-                                />
-                                <label htmlFor="player_one">Player 1</label>
-                            </FloatLabel>
-                        </div>
+                        <FloatLabel>
+                            <InputText
+                                id="player_one"
+                                className="w-full"
+                                value={names[0]}
+                                onChange={e => setNames([e.target.value, names[1]])}
+                            />
+                            <label htmlFor="player_one">Player 1 (✖️)</label>
+                        </FloatLabel>
 
-                        <div>
-                            <FloatLabel>
-                                <InputText
-                                    id="player_two"
-                                    className="w-full"
-                                    value={names[1]}
-                                    onChange={e => setNames([names[0], e.target.value])}
-                                />
-                                <label htmlFor="player_two">Player 2</label>
-                            </FloatLabel>
-                        </div>
+                        <FloatLabel>
+                            <InputText
+                                id="player_two"
+                                className="w-full"
+                                value={names[1]}
+                                onChange={e => setNames([names[0], e.target.value])}
+                            />
+                            <label htmlFor="player_two">Player 2 (⭕)</label>
+                        </FloatLabel>
                     </div>
 
                     <Button className="mt-8 w-full" type="submit" label="Start Game" />
