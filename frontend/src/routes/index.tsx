@@ -37,7 +37,7 @@ export default function Index() {
                             <div>
                                 <h2 className="text-3xl font-bold">Previous Games</h2>
 
-                                <div className="mt-8 grid grid-cols-2 gap-4">
+                                <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
                                     {games.map((game: any) => (
                                         <Card
                                             key={game._id}
