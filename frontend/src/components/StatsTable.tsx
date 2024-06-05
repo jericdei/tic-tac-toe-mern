@@ -9,7 +9,7 @@ export type StatsTableProps = {
 
 export default function StatsTable({ game }: StatsTableProps) {
     return (
-        <div className="mx-auto mt-8 w-[250px]">
+        <div className="mx-auto mt-8">
             <table className="w-full border-collapse border dark:border-gray-500">
                 <thead>
                     <tr>
