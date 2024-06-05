@@ -16,12 +16,12 @@ export default function Index() {
         }
 
         getGames()
-    })
+    }, [])
 
     return (
         <>
-            <main className="grid h-screen w-screen place-items-center text-center">
-                <div className="p-4">
+            <main className="grid h-screen place-items-center text-center">
+                <div className="p-16">
                     <h1 className="text-6xl font-bold">Tic-Tac-Toe</h1>
 
                     <div className="mt-8 flex justify-center">
