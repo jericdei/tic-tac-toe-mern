@@ -39,7 +39,7 @@ export default function Board({ names }: BoardProps) {
         ? `${winnerName} wins!`
         : isDraw
           ? "It's a draw!"
-          : `It's your turn, ${xIsNext ? `${names[0]} (✖️)` : `${names[1]} (⭕️}`}!`
+          : `It's your turn, ${xIsNext ? `${names[0]} (✖️)` : `${names[1]} (⭕️)`}!`
 
     function handleClick(index: number) {
         if (squares[index] || winner) {
