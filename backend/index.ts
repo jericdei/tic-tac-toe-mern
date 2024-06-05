@@ -32,7 +32,7 @@ app.post("/games", async (req, res) => {
     });
 });
 
-const port = process.env.APP_PORT || 3000;
+const port = process.env.PORT || 4000;
 
 async function main() {
     try {
