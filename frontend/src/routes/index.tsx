@@ -21,7 +21,7 @@ export default function Index() {
     return (
         <>
             <main className="grid h-screen place-items-center text-center">
-                <div className="p-16">
+                <div className="p-4 lg:p-16">
                     <h1 className="text-6xl font-bold">Tic-Tac-Toe</h1>
 
                     <div className="mt-8 flex justify-center">
