@@ -1,7 +1,10 @@
-import { TGame as Game } from "@backend/models"
-
 export type StatsTableProps = {
-    game: Game
+    game: {
+        players: string[]
+        wins: any
+        losses: any
+        draws: number
+    }
 }
 
 export default function StatsTable({ game }: StatsTableProps) {
