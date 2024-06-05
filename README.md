@@ -1,4 +1,4 @@
-# Tic-Tac-Toc MERN
+# Tic-Tac-Toe MERN
 
 This is a game of Tic-Tac-Toe developed using MERN (MongoDB, Express.js, React, Node) Stack.
 
