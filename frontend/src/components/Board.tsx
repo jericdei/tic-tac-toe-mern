@@ -10,6 +10,8 @@ export type BoardProps = {
 }
 
 export default function Board({ names }: BoardProps) {
+    const navigate = useNavigate()
+
     const initialStats = {
         players: names,
         wins: {
@@ -23,8 +25,6 @@ export default function Board({ names }: BoardProps) {
         draws: 0,
     }
 
-    const navigate = useNavigate()
-
     const [squares, setSquares] = useState(Array(9).fill(null))
     const [xIsNext, setXIsNext] = useState(true)
     const [stats, setStats] = useState(initialStats)
@@ -35,7 +35,7 @@ export default function Board({ names }: BoardProps) {
     const isDraw = squares.every(square => square !== null) && !winner
     const gameIsFinished = winner || isDraw
 
-    let status = winner
+    const status = winner
         ? `${winnerName} wins!`
         : isDraw
           ? "It's a draw!"
@@ -47,6 +47,7 @@ export default function Board({ names }: BoardProps) {
         }
 
         const nextSquares = squares.slice()
+
         nextSquares[index] = xIsNext ? "X" : "O"
 
         setSquares(nextSquares)
