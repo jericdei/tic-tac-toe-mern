@@ -36,7 +36,7 @@ app.post("/games", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         game,
     });
 }));
-const port = process.env.APP_PORT || 3000;
+const port = process.env.PORT || 4000;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
