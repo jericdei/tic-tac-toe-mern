@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const GameSchema = new mongoose.Schema({
+    players: {
+        type: [String],
+        required: true,
+    },
     wins: {
         type: Object,
         required: true,
@@ -15,6 +19,8 @@ const GameSchema = new mongoose.Schema({
     },
 });
 
+type TGame = mongoose.InferSchemaType<typeof GameSchema>;
+
 const Game = mongoose.model("Game", GameSchema);
 
-export { Game };
+export { Game, TGame };

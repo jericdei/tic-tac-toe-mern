@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
     res.json({ message: "The API works!", randomNumber: Math.random() });
 });
 app.get("/games", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const games = yield models_1.Game.find();
+    const games = yield models_1.Game.find().sort({ _id: -1 });
     res.json({
         games,
     });

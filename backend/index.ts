@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/games", async (req, res) => {
-    const games = await Game.find();
+    const games = await Game.find().sort({ _id: -1 });
 
     res.json({
         games,

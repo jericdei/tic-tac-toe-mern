@@ -3,6 +3,7 @@ import Square from "./Square"
 import { Button } from "primereact/button"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import StatsTable from "./StatsTable"
 
 export type BoardProps = {
     names: string[]
@@ -10,6 +11,7 @@ export type BoardProps = {
 
 export default function Board({ names }: BoardProps) {
     const initialStats = {
+        players: names,
         wins: {
             [names[0]]: 0,
             [names[1]]: 0,
@@ -95,37 +97,7 @@ export default function Board({ names }: BoardProps) {
                 <p>{status}</p>
             </div>
 
-            <div className="mx-auto mt-8 w-[300px]">
-                <table className="w-full border-collapse border dark:border-gray-500">
-                    <thead>
-                        <tr>
-                            <th className="border border-slate-600 text-center"></th>
-                            <th className="border border-slate-600 text-center">{names[0]}</th>
-                            <th className="border border-slate-600 text-center">{names[1]}</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td className="border border-slate-600 text-center">Wins</td>
-                            <td className="border border-slate-600 text-center">{stats.wins[names[0]]}</td>
-                            <td className="border border-slate-600 text-center">{stats.wins[names[1]]}</td>
-                        </tr>
-
-                        <tr>
-                            <td className="border border-slate-600 text-center">Losses</td>
-                            <td className="border border-slate-600 text-center">{stats.losses[names[0]]}</td>
-                            <td className="border border-slate-600 text-center">{stats.losses[names[1]]}</td>
-                        </tr>
-
-                        <tr>
-                            <td className="border border-slate-600 text-center">Draws</td>
-                            <td className="border border-slate-600 text-center">{stats.draws}</td>
-                            <td className="border border-slate-600 text-center">{stats.draws}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <StatsTable game={stats} />
 
             <div className="mx-auto mt-4 grid w-[300px] border-collapse grid-cols-3">
                 {squares.map((square, index) => (
