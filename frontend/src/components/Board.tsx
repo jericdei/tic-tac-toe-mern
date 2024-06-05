@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Square from "./Square"
 import { Button } from "primereact/button"
-import axios from "axios"
+import axios from "../lib/axios"
 import { useNavigate } from "react-router-dom"
 import StatsTable from "./StatsTable"
 
@@ -82,7 +82,7 @@ export default function Board({ names }: BoardProps) {
         updateStats()
         resetGame()
 
-        await axios.post("http://localhost:3000/games", {
+        await axios.post("/games", {
             stats,
         })
 
