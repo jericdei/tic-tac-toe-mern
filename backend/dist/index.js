@@ -21,19 +21,30 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)()).use(express_1.default.json());
 app.get("/", (req, res) => {
-    res.send("Hello Worldz!");
+    res.json({ message: "The API works!", randomNumber: Math.random() });
 });
+app.get("/games", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const games = yield models_1.Game.find();
+    res.json({
+        games,
+    });
+}));
 app.post("/games", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { stats } = req.body;
-    console.log(stats);
     const game = yield models_1.Game.create(stats);
-    console.log(game);
+    res.json({
+        game,
+    });
 }));
 const port = process.env.APP_PORT || 3000;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(process.env.MONGODB_URL);
+            const url = process.env.MONGODB_URL;
+            if (!url) {
+                throw new Error("MONGODB_URL is not set!");
+            }
+            yield mongoose_1.default.connect(url);
             app.listen(port, () => {
                 console.log(`Listening on port ${port}!`);
             });

@@ -2,6 +2,7 @@ import { useState } from "react"
 import Square from "./Square"
 import { Button } from "primereact/button"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export type BoardProps = {
     names: string[]
@@ -19,6 +20,8 @@ export default function Board({ names }: BoardProps) {
         },
         draws: 0,
     }
+
+    const navigate = useNavigate()
 
     const [squares, setSquares] = useState(Array(9).fill(null))
     const [xIsNext, setXIsNext] = useState(true)
@@ -77,14 +80,13 @@ export default function Board({ names }: BoardProps) {
         updateStats()
         resetGame()
 
-        // TODO: trigger save game and go back to home page
-        const res = await axios.post("http://localhost:3000/games", {
+        await axios.post("http://localhost:3000/games", {
             stats,
         })
 
-        console.log(res)
-
         setStats(initialStats)
+
+        navigate("/")
     }
 
     return (
